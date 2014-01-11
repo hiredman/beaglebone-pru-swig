@@ -153,6 +153,7 @@ extern "C" {
     int prussdrv_start_irqthread(unsigned int pru_evtout_num, int priority,
                                  prussdrv_function_handler irqhandler);
 
+    tpruss_intc_initdata * prussdrv_pruintc_init_data(void);
 
 #if defined (__cplusplus)
 }

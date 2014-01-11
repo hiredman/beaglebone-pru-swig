@@ -48,6 +48,7 @@
 
 
 #include <prussdrv.h>
+#include <pruss_intc_mapping.h>
 #include "__prussdrv.h"
 #include <pthread.h>
 
@@ -338,6 +339,9 @@ int prussdrv_pru_write_memory(unsigned int pru_ram_id,
 
 }
 
+tpruss_intc_initdata * prussdrv_pruintc_init_data(void){
+  return PRUSS_INTC_INITDAT;
+}
 
 int prussdrv_pruintc_init(tpruss_intc_initdata * prussintc_init_data)
 {

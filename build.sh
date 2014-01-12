@@ -17,7 +17,6 @@ rm $APP_LOADER"interface/"prussdrv.o
 cd $APP_LOADER"interface/"
 gcc -I. -Wall -I$APP_LOADER"include/"  -c -fPIC -mtune=cortex-a8 -march=armv7-a -shared -o prussdrv.o prussdrv.c
 
-echo cd $D
 cd $D
 
 cd c/

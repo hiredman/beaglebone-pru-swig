@@ -190,9 +190,79 @@ static void SWIGUNUSED SWIG_JavaThrowException(JNIEnv *jenv, SWIG_JavaExceptionC
 #include <prussdrv.h>
   
 
+static unsigned int *new_unsinged_int_array(int nelements) { 
+  return (unsigned int *) calloc(nelements,sizeof(unsigned int)); 
+}
+
+static void delete_unsinged_int_array(unsigned int *ary) { 
+  free(ary); 
+}
+
+static unsigned int unsinged_int_array_getitem(unsigned int *ary, int index) {
+    return ary[index];
+}
+static void unsinged_int_array_setitem(unsigned int *ary, int index, unsigned int value) {
+    ary[index] = value;
+}
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+SWIGEXPORT jlong JNICALL Java_com_thelastcitadel_pru_PRUJNI_new_1unsinged_1int_1array(JNIEnv *jenv, jclass jcls, jint jarg1) {
+  jlong jresult = 0 ;
+  int arg1 ;
+  unsigned int *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (int)jarg1; 
+  result = (unsigned int *)new_unsinged_int_array(arg1);
+  *(unsigned int **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_com_thelastcitadel_pru_PRUJNI_delete_1unsinged_1int_1array(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  unsigned int *arg1 = (unsigned int *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(unsigned int **)&jarg1; 
+  delete_unsinged_int_array(arg1);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_thelastcitadel_pru_PRUJNI_unsinged_1int_1array_1getitem(JNIEnv *jenv, jclass jcls, jlong jarg1, jint jarg2) {
+  jlong jresult = 0 ;
+  unsigned int *arg1 = (unsigned int *) 0 ;
+  int arg2 ;
+  unsigned int result;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(unsigned int **)&jarg1; 
+  arg2 = (int)jarg2; 
+  result = (unsigned int)unsinged_int_array_getitem(arg1,arg2);
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_com_thelastcitadel_pru_PRUJNI_unsinged_1int_1array_1setitem(JNIEnv *jenv, jclass jcls, jlong jarg1, jint jarg2, jlong jarg3) {
+  unsigned int *arg1 = (unsigned int *) 0 ;
+  int arg2 ;
+  unsigned int arg3 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(unsigned int **)&jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (unsigned int)jarg3; 
+  unsinged_int_array_setitem(arg1,arg2,arg3);
+}
+
 
 SWIGEXPORT jint JNICALL Java_com_thelastcitadel_pru_PRUJNI_NUM_1PRU_1HOSTIRQS_1get(JNIEnv *jenv, jclass jcls) {
   jint jresult = 0 ;

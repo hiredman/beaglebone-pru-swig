@@ -16,6 +16,10 @@ public class PRUJNI {
     public static void load(String l) {
         System.load(l);
     }
+  public final static native long new_unsinged_int_array(int jarg1);
+  public final static native void delete_unsinged_int_array(long jarg1);
+  public final static native long unsinged_int_array_getitem(long jarg1, int jarg2);
+  public final static native void unsinged_int_array_setitem(long jarg1, int jarg2, long jarg3);
   public final static native int NUM_PRU_HOSTIRQS_get();
   public final static native int NUM_PRU_HOSTS_get();
   public final static native int NUM_PRU_CHANNELS_get();

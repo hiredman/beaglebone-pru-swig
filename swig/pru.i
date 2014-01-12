@@ -4,6 +4,9 @@
 #include <prussdrv.h>
   %}
 
+%include "carrays.i"
+%array_functions(unsigned int, unsinged_int_array);
+
 
 #include <sys/types.h>
 #include <pthread.h>

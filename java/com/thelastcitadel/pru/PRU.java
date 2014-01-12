@@ -9,6 +9,23 @@
 package com.thelastcitadel.pru;
 
 public class PRU implements PRUConstants {
+  public static SWIGTYPE_p_unsigned_int new_unsinged_int_array(int nelements) {
+    long cPtr = PRUJNI.new_unsinged_int_array(nelements);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_unsigned_int(cPtr, false);
+  }
+
+  public static void delete_unsinged_int_array(SWIGTYPE_p_unsigned_int ary) {
+    PRUJNI.delete_unsinged_int_array(SWIGTYPE_p_unsigned_int.getCPtr(ary));
+  }
+
+  public static long unsinged_int_array_getitem(SWIGTYPE_p_unsigned_int ary, int index) {
+    return PRUJNI.unsinged_int_array_getitem(SWIGTYPE_p_unsigned_int.getCPtr(ary), index);
+  }
+
+  public static void unsinged_int_array_setitem(SWIGTYPE_p_unsigned_int ary, int index, long value) {
+    PRUJNI.unsinged_int_array_setitem(SWIGTYPE_p_unsigned_int.getCPtr(ary), index, value);
+  }
+
   public static int prussdrv_init() {
     return PRUJNI.prussdrv_init();
   }

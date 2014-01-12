@@ -90,8 +90,12 @@ public class PRU implements PRUConstants {
     return PRUJNI.prussdrv_start_irqthread(pru_evtout_num, priority, SWIGTYPE_p_f_p_void__p_void.getCPtr(irqhandler));
   }
 
-  public static SWIGTYPE_p_tpruss_intc_initdata prussdrv_pruintc_init_data() {
-    long cPtr = PRUJNI.prussdrv_pruintc_init_data();
+  public static void pruss_intc_initdata_ptr_set(SWIGTYPE_p_tpruss_intc_initdata value) {
+    PRUJNI.pruss_intc_initdata_ptr_set(SWIGTYPE_p_tpruss_intc_initdata.getCPtr(value));
+  }
+
+  public static SWIGTYPE_p_tpruss_intc_initdata pruss_intc_initdata_ptr_get() {
+    long cPtr = PRUJNI.pruss_intc_initdata_ptr_get();
     return (cPtr == 0) ? null : new SWIGTYPE_p_tpruss_intc_initdata(cPtr, false);
   }
 

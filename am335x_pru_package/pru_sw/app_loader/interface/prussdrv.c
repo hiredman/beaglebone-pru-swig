@@ -339,9 +339,8 @@ int prussdrv_pru_write_memory(unsigned int pru_ram_id,
 
 }
 
-tpruss_intc_initdata * prussdrv_pruintc_init_data(void){
-  return PRUSS_INTC_INITDAT;
-}
+tpruss_intc_initdata pruss_intc_initdata_constant = PRUSS_INTC_INITDATA;
+tpruss_intc_initdata * pruss_intc_initdata_ptr = &pruss_intc_initdata_constant;
 
 int prussdrv_pruintc_init(tpruss_intc_initdata * prussintc_init_data)
 {

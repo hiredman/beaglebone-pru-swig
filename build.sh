@@ -13,6 +13,7 @@ D=`pwd`
 APP_LOADER=$D/"am335x_pru_package/pru_sw/app_loader/"
 JAR_DIR="jar-files"
 
+rm $APP_LOADER"interface/"prussdrv.o
 cd $APP_LOADER"interface/"
 gcc -I. -Wall -I$APP_LOADER"include/"  -c -fPIC -mtune=cortex-a8 -march=armv7-a -shared -o prussdrv.o prussdrv.c
 
@@ -20,10 +21,10 @@ echo cd $D
 cd $D
 
 cd c/
+rm lib$LIBRARY_NAME".so"
 
 gcc -I. -Wall -I$APP_LOADER"include/" -I$INCLUDE -I$INCLUDE/linux -c -fPIC -mtune=cortex-a8 -march=armv7-a -shared -o pru_wrap.o pru_wrap.c
 
-echo gcc -shared -o lib$LIBRARY_NAME".so" $APP_LOADER"interface/"prussdrv.o pru_wrap.o
 gcc -shared -o lib$LIBRARY_NAME".so" $APP_LOADER"interface/"prussdrv.o pru_wrap.o
 
 cd $D
@@ -32,6 +33,7 @@ cd $D
 rm -rf $JAR_DIR
 mkdir $JAR_DIR
 find $PWD/ -type f -name \*.java | xargs $JAVAC -sourcepath java -d $JAR_DIR
+cp c/lib$LIBRARY_NAME".so" $JAR_DIR
 
 # # generate jni header
 # #$JAVAH -jni -classpath . -o ${LIBRARY_NAME}.h $CLASSNAME
@@ -53,6 +55,6 @@ cat > pom.xml << EOF
 EOF
  
 # jar it all up
-$JAR -cf $PROJECT_NAME-$VERSION.jar $JAR_DIR
+$JAR -cvf $PROJECT_NAME-$VERSION.jar -C $JAR_DIR .
 
 

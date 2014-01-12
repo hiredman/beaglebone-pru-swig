@@ -106,7 +106,7 @@ int prussdrv_exec_program(int prunum, char *filename);
 int prussdrv_start_irqthread(unsigned int pru_evtout_num, int priority,
                              prussdrv_function_handler irqhandler);
 
-tpruss_intc_initdata * prussdrv_pruintc_init_data(void);
+tpruss_intc_initdata * pruss_intc_initdata_ptr;
 
 #define AM33XX
 #ifdef AM33XX

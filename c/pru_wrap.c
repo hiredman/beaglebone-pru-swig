@@ -771,13 +771,23 @@ SWIGEXPORT jint JNICALL Java_com_thelastcitadel_pru_PRUJNI_prussdrv_1start_1irqt
 }
 
 
-SWIGEXPORT jlong JNICALL Java_com_thelastcitadel_pru_PRUJNI_prussdrv_1pruintc_1init_1data(JNIEnv *jenv, jclass jcls) {
+SWIGEXPORT void JNICALL Java_com_thelastcitadel_pru_PRUJNI_pruss_1intc_1initdata_1ptr_1set(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  tpruss_intc_initdata *arg1 = (tpruss_intc_initdata *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(tpruss_intc_initdata **)&jarg1; 
+  pruss_intc_initdata_ptr = arg1;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_com_thelastcitadel_pru_PRUJNI_pruss_1intc_1initdata_1ptr_1get(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
   tpruss_intc_initdata *result = 0 ;
   
   (void)jenv;
   (void)jcls;
-  result = (tpruss_intc_initdata *)prussdrv_pruintc_init_data();
+  result = (tpruss_intc_initdata *)pruss_intc_initdata_ptr;
   *(tpruss_intc_initdata **)&jresult = result; 
   return jresult;
 }

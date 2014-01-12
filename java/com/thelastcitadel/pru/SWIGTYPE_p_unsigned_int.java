@@ -11,7 +11,7 @@ package com.thelastcitadel.pru;
 public class SWIGTYPE_p_unsigned_int {
   private long swigCPtr;
 
-  protected SWIGTYPE_p_unsigned_int(long cPtr, boolean futureUse) {
+  public SWIGTYPE_p_unsigned_int(long cPtr, boolean futureUse) {
     swigCPtr = cPtr;
   }
 
@@ -19,7 +19,7 @@ public class SWIGTYPE_p_unsigned_int {
     swigCPtr = 0;
   }
 
-  protected static long getCPtr(SWIGTYPE_p_unsigned_int obj) {
+  public static long getCPtr(SWIGTYPE_p_unsigned_int obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 }

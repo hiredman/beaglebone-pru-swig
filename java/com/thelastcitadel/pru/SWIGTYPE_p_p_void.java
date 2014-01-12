@@ -11,7 +11,7 @@ package com.thelastcitadel.pru;
 public class SWIGTYPE_p_p_void {
   private long swigCPtr;
 
-  protected SWIGTYPE_p_p_void(long cPtr, boolean futureUse) {
+  public SWIGTYPE_p_p_void(long cPtr, boolean futureUse) {
     swigCPtr = cPtr;
   }
 

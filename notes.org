@@ -1,0 +1,102 @@
+
+#+BEGIN_SRC clojure
+(require '[clojure.java.io :as io])
+
+(defn f []
+ (let [f (java.io.File/createTempFile "libPRU" ".so")]
+    (.deleteOnExit f)
+    (io/copy (io/input-stream (io/resource "libPRU.so")) f)
+    (com.thelastcitadel.pru.PRUJNI/load (.getAbsolutePath f))))
+#+END_SRC
+
+http://osdir.com/ml/beagleboard/2012-02/msg01067.html
+
+http://hipstercircuits.com/compiling-the-beaglebone-pru-packages-as-shared-object/
+
+http://hipstercircuits.com/beaglebone-pru-ddr-memory-access-the-right-way/
+
+http://www.element14.com/community/community/knode/single-board_computers/next-gen_beaglebone/blog/2013/05/22/bbb--working-with-the-pru-icssprussv2
+
+https://npmjs.org/package/pru
+
+http://analogdigitallab.org/articles/beaglebone-black-introduction-pru-icss
+
+http://learn.adafruit.com/introduction-to-the-beaglebone-black-device-tree/device-tree-background
+
+https://github.com/jadonk/validation-scripts/tree/master/test-capemgr
+
+https://docs.google.com/document/d/17P54kZkZO_-JtTjrFuVz-Cp_RMMg7GB_8W9JK9sLKfA/pub
+
+http://processors.wiki.ti.com/index.php/PRU_Assembly_Instructions
+
+http://www.embedded-things.com/bbb/wireless-servo-control-part-3-pwm-servo-control-with-the-bbb-pru/
+
+http://stackoverflow.com/questions/18388478/change-hearbeat-led-on-beaglebone-black-with-device-tree-overlay
+
+http://www.swig.org/Doc1.3/Java.html
+
+http://boxysean.com/blog/2012/08/12/first-steps-with-the-beaglebone-pru/
+
+#+BEGIN_SRC clojure
+(import 'com.thelastcitadel.pru.PRU)
+
+(PRU/prussdrv_init)
+(PRU/prussdrv_open 0)
+(PRU/prussdrv_pruintc_init (PRU/pruss_intc_initdata_ptr_get))
+(PRU/prussdrv_pru_clear_event 0)
+(PRU/prussdrv_exit)
+
+#+END_SRC
+
+http://stackoverflow.com/questions/11329519/manipulation-of-bytebuffer-from-jni
+
+
+#+BEGIN_SRC clojure
+(import '(com.thelastcitadel.pru PRU
+                                 SWIGTYPE_p_unsigned_int
+                                 SWIGTYPE_p_p_void))
+
+(defn pru-data-ram [unit]
+  (case unit
+    0 (let [x (PRU/new_unsinged_int_array 1)]
+        (PRU/prussdrv_map_prumem PRU/PRUSS0_PRU0_DATARAM
+          (SWIGTYPE_p_p_void.
+            (SWIGTYPE_p_unsigned_int/getCPtr x)
+            true))
+        (let [n (PRU/unsinged_int_array_getitem x 0)]
+          (PRU/delete_unsinged_int_array x)
+          (SWIGTYPE_p_unsigned_int. n true)))
+    1 (let [x (PRU/new_unsinged_int_array 1)]
+        (PRU/prussdrv_map_prumem PRU/PRUSS0_PRU1_DATARAM 
+          (SWIGTYPE_p_p_void.
+            (SWIGTYPE_p_unsigned_int/getCPtr x)
+            true))
+        (let [n (PRU/unsinged_int_array_getitem x 0)]
+          (PRU/delete_unsinged_int_array x)
+          (SWIGTYPE_p_unsigned_int. n true)))))
+
+(def addend1 0x0010F012)
+(def addend2 0x0000567A)
+
+(defn g []
+  (println "1")
+  (PRU/prussdrv_init)
+  (PRU/prussdrv_open PRU/PRU_EVTOUT_0)
+  (PRU/prussdrv_pruintc_init (PRU/pruss_intc_initdata_ptr_get))
+  (println "2")
+  (let [x (pru-data-ram 0)]
+    (dotimes [i 10]
+      (PRU/unsinged_int_array_setitem x i 0))
+    (PRU/prussdrv_exec_program 0 "/home/root/bas.bin")
+    (PRU/prussdrv_pru_wait_event PRU/PRU_EVTOUT_0)
+    (println "3")
+    (PRU/prussdrv_pru_clear_event PRU/PRU0_ARM_INTERRUPT)
+    (dotimes [i 10]
+      (println i "=" (PRU/unsinged_int_array_getitem x i))))
+  (PRU/prussdrv_pru_clear_event 0)
+  (PRU/prussdrv_pru_disable 0)
+  (PRU/prussdrv_exit)
+  (println "done"))
+#+END_SRC
+
+http://elinux.org/BeagleBone_PRU_Notes

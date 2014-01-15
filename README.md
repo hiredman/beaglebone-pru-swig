@@ -5,6 +5,11 @@ beaglebone's PRUs
 
 ## Usage
 
+You can get it from the clojars maven repo:
+```
+[beaglebone-pru-swig 1.0.0]
+```
+
 here is an example use from Clojure:
 
 ```clojure
